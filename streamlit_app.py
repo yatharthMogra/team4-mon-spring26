@@ -54,7 +54,11 @@ def load_boundary_geojson(path: Path) -> dict[str, Any]:
     for feature in payload.get("features", []):
         props = feature.setdefault("properties", {})
         score = parse_score(props.get("placeholder_score"))
-        props["_fill_color"] = score_to_color(score)
+        fill_color = score_to_color(score)
+        props["_fill_r"] = fill_color[0]
+        props["_fill_g"] = fill_color[1]
+        props["_fill_b"] = fill_color[2]
+        props["_fill_a"] = fill_color[3]
 
     return payload
 
@@ -114,8 +118,8 @@ def main() -> None:
         stroked=True,
         filled=True,
         extruded=False,
-        get_fill_color="_fill_color",
-        get_line_color=[51, 65, 85, 200],
+        get_fill_color=["_fill_r", "_fill_g", "_fill_b", "_fill_a"],
+        get_line_color=[100, 116, 139, 170],
         line_width_min_pixels=1,
         pickable=True,
     )
