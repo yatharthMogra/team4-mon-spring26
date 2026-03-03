@@ -127,7 +127,15 @@ def main() -> None:
 
     col_map, col_info = st.columns([3, 2])
     with col_map:
-        st.pydeck_chart(pdk.Deck(layers=[layer], initial_view_state=NYC_VIEW, tooltip=tooltip))
+        st.pydeck_chart(
+            pdk.Deck(
+                layers=[layer],
+                initial_view_state=NYC_VIEW,
+                tooltip=tooltip,
+                map_provider="carto",
+                map_style="light",
+            )
+        )
 
     with col_info:
         st.subheader(selected_name)
